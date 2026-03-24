@@ -1,0 +1,8 @@
+#!/usr/bin/with-contenv sh
+
+PORT_VALUE="${PORT:-10000}"
+
+echo "Starting healthcheck server on ${PORT_VALUE}"
+
+# Render expects a TCP listener on $PORT for web services.
+/bin/busybox httpd -f -p "${PORT_VALUE}"

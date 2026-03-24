@@ -5,8 +5,11 @@ services:
     plan: starter
     dockerfilePath: ./Dockerfile
     autoDeploy: false
+    envVars:
+      - key: SERVERPORT
+        value: "5120"
     ports:
-      - port: 51820
+      - port: 5120
         protocol: udp
     disk:
       name: wireguard-data
