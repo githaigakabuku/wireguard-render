@@ -2,10 +2,18 @@
 
 ## What Gets Deployed
 
-1. **WireGuard VPN Server** - Pre-built from `linuxserver/wireguard` Docker image
+1. **WireGuard VPN Server** - Userspace implementation using `wireguard-go` (no kernel module required)
 2. **Initialization Scripts** - Sets up keys and server configuration on first run
 3. **Peer Management** - Scripts to add WireGuard clients (peers)
 4. **Healthcheck Service** - HTTP server for Render's port monitoring
+
+## Why wireguard-go?
+
+Render.com containers don't allow kernel module loading. This deployment uses **wireguard-go** (userspace WireGuard implementation) which:
+- ✓ Requires no kernel module
+- ✓ Works on restricted container environments
+- ✓ Provides full WireGuard encryption & functionality
+- ✓ Slightly higher CPU usage than kernel module (still minimal)
 
 ## Files in This Deployment
 
