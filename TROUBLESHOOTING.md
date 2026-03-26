@@ -12,11 +12,13 @@ git push origin main  # Trigger new deployment on Render
 ## Issue: Deployment fails immediately
 
 **Solution:** Check the build logs in Render dashboard:
+
 1. Go to Services → Your WireGuard Service
 2. Click "Logs"
 3. Look for errors in the build phase
 
 Common causes:
+
 - Missing files (ensure all `.sh` scripts are pushed)
 - Invalid Dockerfile syntax (check for typos)
 - Alpine package name changes
@@ -24,12 +26,14 @@ Common causes:
 ## Issue: Container runs but peers can't connect
 
 **Checklist:**
+
 - [ ] Replace `YOUR_SERVER_IP` in peer configs with actual server IP
 - [ ] Server IP is listed in Render dashboard (Services → Environment)
 - [ ] UDP port 5120 is accessible from outside (check firewall)
 - [ ] Peer IP assignments are correct (check `/config/PEERS.md`)
 
 **To verify server is running:**
+
 ```bash
 # In Render shell
 ps aux | grep wireguard-go
@@ -46,6 +50,7 @@ netstat -ulpn | grep 5120
 ## Issue: Can't access Render shell
 
 **Solution:**
+
 1. Go to Render Dashboard → Services → Your WireGuard Service
 2. Click "Shell" in the top menu
 3. If Shell button is grayed out, service needs to be running
@@ -53,6 +58,7 @@ netstat -ulpn | grep 5120
 ## Issue: Persistent config disk shows error
 
 **Solution:** The 1GB disk should be automatically created. If missing:
+
 1. Delete and recreate the service
 2. Ensure `render.yaml` has correct disk configuration:
    ```yaml
@@ -67,12 +73,14 @@ netstat -ulpn | grep 5120
 **Current limitation:** This deployment creates the VPN tunnel but routing/NAT rules may not work on Render's restricted environment. Peers can communicate with the server but may not reach other networks through it.
 
 **Possible solutions:**
+
 - Use this as a proxy/gateway access point only
 - Host on unrestricted VPS (DigitalOcean, Linode, Vultr) instead
 
 ## Issue: Port 5120 shows as closed externally
 
 **Solution:**
+
 1. Verify in `render.yaml`:
    ```yaml
    ports:
@@ -85,6 +93,7 @@ netstat -ulpn | grep 5120
 ## Debug Information
 
 Get full server status:
+
 ```bash
 # In Render shell
 cat /config/PEERS.md
@@ -94,6 +103,7 @@ ps aux | grep wg
 ```
 
 Check interface configuration:
+
 ```bash
 wg show wg0
 ```
@@ -106,6 +116,7 @@ wg show wg0
 4. Ensure Dockerfile builds without errors
 
 For complex issues, consider:
+
 - Testing locally with Docker
 - Using a different hosting platform
 - Using traditional OpenVPN instead

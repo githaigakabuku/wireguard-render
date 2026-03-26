@@ -10,6 +10,7 @@
 ## Why wireguard-go?
 
 Render.com containers don't allow kernel module loading. This deployment uses **wireguard-go** (userspace WireGuard implementation) which:
+
 - ✓ Requires no kernel module
 - ✓ Works on restricted container environments
 - ✓ Provides full WireGuard encryption & functionality
